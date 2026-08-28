@@ -14,7 +14,7 @@ repositories {
 }
 
 application {
-    mainClass.set("Duke")
+    mainClass.set("Launcher")
 }
 
 java {
@@ -48,3 +48,4 @@ dependencies {
     implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
     implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
 }
+
