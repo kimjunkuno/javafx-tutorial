@@ -28,12 +28,33 @@ public class DialogBox extends HBox {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
+            getStylesheets().add(DialogBox.class.getResource("/css/dialog-box.css").toExternalForm());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         dialog.setText(text);
         displayPicture.setImage(img);
+    }
+
+    private void changeDialogStyle(String commandType) {
+        if (commandType == null) {
+            return;
+        }
+
+        switch (commandType) {
+        case "AddCommand":
+            dialog.getStyleClass().add("add-label");
+            break;
+        case "ChangeMarkCommand":
+            dialog.getStyleClass().add("marked-label");
+            break;
+        case "DeleteCommand":
+            dialog.getStyleClass().add("delete-label");
+            break;
+        default:
+            // Do nothing
+        }
     }
 
 
@@ -45,6 +66,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
@@ -54,6 +76,12 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        return db;
+    }
+
+    public static DialogBox getDukeDialog(String text, Image img, String commandType) {
+        var db = getDukeDialog(text, img);
+        db.changeDialogStyle(commandType);
         return db;
     }
 }
